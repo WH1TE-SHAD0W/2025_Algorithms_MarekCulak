@@ -8,7 +8,7 @@ public class NumberUtils {
      */
     private static void nullValidateArray(int[] arr) {
         if (arr == null) {
-            throw new IllegalArgumentException("Array is empty");
+            throw new IllegalArgumentException("Array is null!");
         }
     }
 
@@ -47,6 +47,30 @@ public class NumberUtils {
             }
         }
         return index;
+    }
+
+    /**
+     * Takes in two integer arrays and verifies if they are completely identical.
+     *
+     * Verifies the length of both first, then loops through first and verifies the
+     * values on each arrays in the specific looped index. If they are same the loop finishes and returns true.
+     * Otherwise, the loop would break by returning false.
+     * @param arr1, array to compare
+     * @param arr2, array to compare to the first one
+     * @return boolean
+     */
+    public static boolean isIdentical(int[] arr1, int[] arr2) {
+        nullValidateArray(arr1);
+        nullValidateArray(arr2);
+        if (arr1.length != arr2.length) {
+            return false;
+        }
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static void main() {
