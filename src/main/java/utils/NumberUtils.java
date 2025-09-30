@@ -128,13 +128,26 @@ public class NumberUtils {
         return false;
     }
 
+    /**
+     * Loops through the loop and finds the highest value
+     * @param nums array of int
+     * @return the highest value in an array
+     */
+    public static int getMax(int[] nums) {
+        nullValidateArray(nums);
+        int max = 0;
+        if  (nums.length > 0) {
+            max = nums[0];
+        for (int num : nums) {
+            if (num > max)  {
+                max = num;
+            }
+            }
+        }
+        return max;
+    }
 
     static void main() {
         System.out.println(getLastPos(new int[]{0,5,3,1,5}, 5));
-        System.out.println("Testing isSubset where array 1 is a subset, but in a different order");
-        int[] nums1 = {1, 2, 3};
-        int[] nums2 = {5, 4, 3, 2, 1};
-        boolean expResult = true;
-        boolean result = isSubset(nums1, nums2);
     }
 }
