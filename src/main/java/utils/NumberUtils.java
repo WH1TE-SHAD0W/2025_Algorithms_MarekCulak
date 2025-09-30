@@ -101,8 +101,13 @@ public class NumberUtils {
         return arr1.length != arr2.length;
     }
 
-
-    public static boolean isSubset(int[] arr, int[] subset) {
+    /**
+     * Verifies if subset is subset of arr.
+     * @param arr an array in which to look out for the subset
+     * @param subset the array which is the subset of arr
+     * @return boolean true if subset is a subset of arr otherwise false
+     */
+    public static boolean isSubset(int[] subset, int[] arr) {
         nullValidateArray(arr);
         nullValidateArray(subset);
 
@@ -112,17 +117,24 @@ public class NumberUtils {
         if (!notEqualLength(arr, subset)) return false;
 
         for (int i = 0; i < arr.length; i++) {
+            if (subset.length >= arr.length-i) return false;
             if (arr[i] == subset[0]) {
                 for (int j = 0; j < subset.length; j++) {
                     if (arr[i+j] != subset[j]) return false;
                 }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
 
     static void main() {
         System.out.println(getLastPos(new int[]{0,5,3,1,5}, 5));
+        System.out.println("Testing isSubset where array 1 is a subset, but in a different order");
+        int[] nums1 = {1, 2, 3};
+        int[] nums2 = {5, 4, 3, 2, 1};
+        boolean expResult = true;
+        boolean result = isSubset(nums1, nums2);
     }
 }
