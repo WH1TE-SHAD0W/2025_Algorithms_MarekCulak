@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Arrays;
+
 public class NumberUtils {
     /**
      * Throws an exception Illegal Argument if arr is null
@@ -62,9 +64,7 @@ public class NumberUtils {
     public static boolean isIdentical(int[] arr1, int[] arr2) {
         nullValidateArray(arr1);
         nullValidateArray(arr2);
-        if (arr1.length != arr2.length) {
-            return false;
-        }
+        if (notEqualLength(arr1, arr2)) return false;
         for (int i = 0; i < arr1.length; i++) {
             if (arr1[i] != arr2[i]) {
                 return false;
@@ -72,6 +72,36 @@ public class NumberUtils {
         }
         return true;
     }
+
+    /**
+     * Sorts arrays and uses isIdentical
+     * @param arr1 array to compare
+     * @param arr2 array to compare
+     * @return boolean if they are equal or not
+     */
+    public static boolean isEqual(int[] arr1, int[] arr2) {
+        nullValidateArray(arr1);
+        nullValidateArray(arr2);
+
+        if (notEqualLength(arr1, arr2)) return false;
+
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        return isIdentical(arr1, arr2);
+    }
+
+    /**
+     * Returns true if two arrays have same length otherwise false
+     * @param arr1 array to compare
+     * @param arr2 array to compare
+     * @return boolean to whether it is equal or not
+     */
+    private static boolean notEqualLength(int[] arr1, int[] arr2) {
+        return arr1.length != arr2.length;
+    }
+
+
 
     static void main() {
         System.out.println(getLastPos(new int[]{0,5,3,1,5}, 5));
