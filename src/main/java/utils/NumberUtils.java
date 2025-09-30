@@ -102,6 +102,25 @@ public class NumberUtils {
     }
 
 
+    public static boolean isSubset(int[] arr, int[] subset) {
+        nullValidateArray(arr);
+        nullValidateArray(subset);
+
+        Arrays.sort(arr);
+        Arrays.sort(subset);
+
+        if (!notEqualLength(arr, subset)) return false;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == subset[0]) {
+                for (int j = 0; j < subset.length; j++) {
+                    if (arr[i+j] != subset[j]) return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     static void main() {
         System.out.println(getLastPos(new int[]{0,5,3,1,5}, 5));
