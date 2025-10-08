@@ -10,7 +10,7 @@ public class NumberUtils {
      */
     private static void nullValidateArray(int[] arr) {
         if (arr == null) {
-            throw new IllegalArgumentException("Array is null!");
+            throw new NullPointerException("Array is null!");
         }
     }
 
@@ -53,7 +53,6 @@ public class NumberUtils {
 
     /**
      * Takes in two integer arrays and verifies if they are completely identical.
-     *
      * Verifies the length of both first, then loops through first and verifies the
      * values on each arrays in the specific looped index. If they are same the loop finishes and returns true.
      * Otherwise, the loop would break by returning false.
@@ -62,8 +61,13 @@ public class NumberUtils {
      * @return boolean
      */
     public static boolean isIdentical(int[] arr1, int[] arr2) {
-        nullValidateArray(arr1);
-        nullValidateArray(arr2);
+        // checks if both are null returns true
+        if (arr1 == null && arr2 == null) {return true;}
+
+        // checks if only one was null, if so returns false using a xor statement
+        if ((arr1 == null) ^ (arr2 == null)) {return false;}
+
+        // looping through each element to compare the value of arrays
         if (notEqualLength(arr1, arr2)) return false;
         for (int i = 0; i < arr1.length; i++) {
             if (arr1[i] != arr2[i]) {
@@ -106,10 +110,16 @@ public class NumberUtils {
      * @param arr an array in which to look out for the subset
      * @param subset the array which is the subset of arr
      * @return boolean true if subset is a subset of arr otherwise false
-     */
+     * Performs boolean validation of input first as it is near instant. Validates the null values and 0 lengths of the
+     * arrays. Than sorts the arrays and uses a loop in a loop to find out if it is a subset.
+     * */
     public static boolean isSubset(int[] subset, int[] arr) {
-        nullValidateArray(arr);
-        nullValidateArray(subset);
+        // checks if any of the is null to return false using or statement
+        if ((subset == null) || (arr == null)) {return false;}
+
+        if (subset.length == 0 || arr.length == 0) {
+            return false;
+        }
 
         Arrays.sort(arr);
         Arrays.sort(subset);
@@ -135,19 +145,22 @@ public class NumberUtils {
      */
     public static int getMax(int[] nums) {
         nullValidateArray(nums);
-        int max = 0;
-        if  (nums.length > 0) {
-            max = nums[0];
+
+        if (nums.length == 0) {
+            throw new IllegalArgumentException("Array must not be empty.");
+        }
+
+        int max = nums[0];
         for (int num : nums) {
-            if (num > max)  {
+            if (num > max) {
                 max = num;
             }
-            }
         }
+
         return max;
     }
 
     static void main() {
-        System.out.println(getLastPos(new int[]{0,5,3,1,5}, 5));
+        System.out.println(getMax(new int[]{}));
     }
 }
